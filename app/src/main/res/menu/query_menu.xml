@@ -6,12 +6,21 @@
     tools:context=".ChatActivity">
 
     <item
-        android:id="@+id/mnList"
-        android:title="@string/list_option"
-        app:showAsAction="never"/>
+        android:icon="@drawable/menu"
+        app:showAsAction="always"
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/mnList"
+                android:icon="@drawable/list"
+                android:title="@string/list_option"/>
 
-    <item
-        android:id="@+id/mnMap"
-        android:title="@string/map_option"
-        app:showAsAction="never"/>
+            <item
+                android:id="@+id/mnMap"
+                android:title="@string/map_option"
+                android:icon="@drawable/map"/>
+        </menu>
+    </item>
+
+
 </menu>
