@@ -10,4 +10,6 @@
     <string name="btn_sort_query">Buscar</string>
     <string name="list_option">Listado</string>
     <string name="map_option">Mapa</string>
+    <string name="filter_dialog_title">Seleccionar Distrito</string>
+    <string name="district_filter_template">Distrito: %1$s</string>
 </resources>
