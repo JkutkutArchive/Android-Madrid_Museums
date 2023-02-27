@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ProyectoB_PMDM_T2_Jorge_Re</string>
     <string name="main_activity_title">Buscador de Museos de la Comunidad de Madrid</string>
+    <string name="app_title">Museos de Madrid</string>
     <string name="main_activity_subtitle">Aplicación de consulta de los datos de la API Rest de la comunidad de Madrid para obtener información sobre museos.\n\nRealizado por Jorge Re - Jkutkut</string>
     <string name="main_activity_button">Consultar datos</string>
     <string name="fap_icon_description">Toggle between dark and light modes.</string>

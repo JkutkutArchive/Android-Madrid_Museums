@@ -51,6 +51,6 @@
         app:borderWidth="0dp"
         android:contentDescription="@string/fap_icon_description"
         android:src="@drawable/ic_mode"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

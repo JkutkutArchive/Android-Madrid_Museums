@@ -17,6 +17,8 @@ public class MainActivity extends CustomActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState, R.layout.activity_main);
 
+        setTitle(R.string.app_title);
+
         btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(v -> {
             Intent i = new Intent(this, QueryActivity.class);
