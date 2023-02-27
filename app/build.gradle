@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'com.jkutkut.proyectob_pmdm_t2_jorge_re'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.jkutkut.proyectob_pmdm_t2_jorge_re"

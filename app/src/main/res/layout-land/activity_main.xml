@@ -7,20 +7,32 @@
     tools:context=".MainActivity"
     android:padding="@dimen/activity_padding">
 
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/logo"
+        android:layout_marginBottom="@dimen/normal_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/logo_description" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:borderWidth="0dp"
+        android:contentDescription="@string/fap_icon_description"
+        android:src="@drawable/ic_mode"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
     <LinearLayout
         android:id="@+id/llMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:src="@drawable/logo"
-            android:layout_marginBottom="@dimen/normal_margin"
-            android:contentDescription="@string/logo_description"/>
-
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -34,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_margin"
             android:text="@string/main_activity_subtitle"
-            android:textSize="@dimen/subtitle_text_size"/>
+            android:textSize="@dimen/subtitle_text_size" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
@@ -43,14 +55,4 @@
             android:text="@string/main_activity_button"
             android:id="@+id/btnStart" />
     </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:borderWidth="0dp"
-        android:contentDescription="@string/fap_icon_description"
-        android:src="@drawable/ic_mode"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
