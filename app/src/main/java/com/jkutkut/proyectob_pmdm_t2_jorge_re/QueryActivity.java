@@ -9,10 +9,18 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.MuseumAPI;
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.RetrofitClient;
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.MuseumResult;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.dialog.FilterDialog;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.dialog.FilterDialogListener;
 
 import org.jetbrains.annotations.NotNull;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class QueryActivity extends AppCompatActivity implements FilterDialogListener {
 
@@ -52,7 +60,32 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
 
     // ******* Search *******
     private void search() {
-        Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show(); // TODO
+        Retrofit r = RetrofitClient.getClient(MuseumAPI.URL);
+        MuseumAPI museumAPI = r.create(MuseumAPI.class);
+        Call<MuseumResult> call = museumAPI.getMuseums(filterDistrict);
+
+        call.enqueue(new Callback<MuseumResult>() {
+            @Override
+            public void onResponse(Call<MuseumResult> call, Response<MuseumResult> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(QueryActivity.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                MuseumResult result = response.body();
+                assert result != null;
+                System.out.println("Oleeeeee");
+                System.out.println(result.getGraph().get(0).getAddress());
+                System.out.println(result.getGraph().size());
+
+                // TODO
+            }
+
+            @Override
+            public void onFailure(Call<MuseumResult> call, Throwable t) {
+                Toast.makeText(QueryActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                throw new RuntimeException(t);
+            }
+        });
     }
 
     // ******* UI *******
@@ -76,14 +109,12 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
 
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+        // TODO
         if (item.getItemId() == R.id.mnList) {
 
         }
         else if (item.getItemId() == R.id.mnMap) {
 
-        }
-        else {
-            // TODO
         }
         return super.onOptionsItemSelected(item);
     }
