@@ -1,5 +1,6 @@
 package com.jkutkut.proyectob_pmdm_t2_jorge_re.list;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.MuseumDetailActivity;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.R;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Museum;
 
@@ -55,6 +57,11 @@ public class MuseumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public void bind(Museum museum) {
             txtvName.setText(museum.getTitle());
+            itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(itemView.getContext(), MuseumDetailActivity.class);
+                intent.putExtra(MuseumDetailActivity.ARG, museum);
+                itemView.getContext().startActivity(intent);
+            });
         }
     }
 }
