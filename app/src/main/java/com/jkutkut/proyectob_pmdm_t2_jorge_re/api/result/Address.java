@@ -3,7 +3,9 @@ package com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
 
     @SerializedName("district")
     @Expose

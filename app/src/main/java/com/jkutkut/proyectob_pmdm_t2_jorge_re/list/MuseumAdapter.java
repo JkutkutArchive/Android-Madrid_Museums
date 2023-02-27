@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.R;
-import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Graph;
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Museum;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -17,16 +17,16 @@ import java.util.List;
 
 public class MuseumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final ArrayList<Graph> data;
+    private final List<Museum> data;
 
-    public MuseumAdapter() {
-        data = new ArrayList<>();
+    public MuseumAdapter(List<Museum> data) {
+        this.data = data;
     }
 
-    public void setData(List<Graph> newData) {
-        data.clear();
-        data.addAll(newData);
-    }
+//    public void setData(List<Museum> newData) {
+//        data.clear();
+//        data.addAll(newData);
+//    }
 
     @NotNull
     @Override
@@ -53,7 +53,7 @@ public class MuseumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             txtvName = itemView.findViewById(R.id.txtvName);
         }
 
-        public void bind(Graph museum) {
+        public void bind(Museum museum) {
             txtvName.setText(museum.getTitle());
         }
     }

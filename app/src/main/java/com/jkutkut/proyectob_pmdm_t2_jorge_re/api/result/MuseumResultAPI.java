@@ -1,17 +1,18 @@
 package com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MuseumResult {
+public class MuseumResultAPI implements Serializable {
 
     @SerializedName("@context")
     @Expose
     private Context context;
     @SerializedName("@graph")
     @Expose
-    private List<Graph> graph;
+    private List<Museum> museum;
 
     public Context getContext() {
         return context;
@@ -21,12 +22,12 @@ public class MuseumResult {
         this.context = context;
     }
 
-    public List<Graph> getGraph() {
-        return graph;
+    public List<Museum> getMuseums() {
+        return museum;
     }
 
-    public void setGraph(List<Graph> graph) {
-        this.graph = graph;
+    public void setMuseum(List<Museum> museum) {
+        this.museum = museum;
     }
 
 }

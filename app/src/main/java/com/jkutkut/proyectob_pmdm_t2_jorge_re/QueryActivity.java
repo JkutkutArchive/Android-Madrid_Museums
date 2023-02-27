@@ -3,7 +3,6 @@ package com.jkutkut.proyectob_pmdm_t2_jorge_re;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -15,10 +14,10 @@ import android.widget.Toast;
 
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.MuseumAPI;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.RetrofitClient;
-import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.MuseumResult;
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.MuseumResultAPI;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.dialog.FilterDialog;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.dialog.FilterDialogListener;
-import com.jkutkut.proyectob_pmdm_t2_jorge_re.list.MuseumAdapter;
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.list.ListViewFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,7 +37,7 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
 
     private String filterDistrict;
     private int mode;
-    private MuseumResult result;
+    private MuseumResultAPI result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +76,11 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
     private void search() {
         Retrofit r = RetrofitClient.getClient(MuseumAPI.URL);
         MuseumAPI museumAPI = r.create(MuseumAPI.class);
-        Call<MuseumResult> call = museumAPI.getMuseums(filterDistrict);
+        Call<MuseumResultAPI> call = museumAPI.getMuseums(filterDistrict);
 
-        call.enqueue(new Callback<MuseumResult>() {
+        call.enqueue(new Callback<MuseumResultAPI>() {
             @Override
-            public void onResponse(@NonNull Call<MuseumResult> call, @NonNull Response<MuseumResult> response) {
+            public void onResponse(@NonNull Call<MuseumResultAPI> call, @NonNull Response<MuseumResultAPI> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(QueryActivity.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
@@ -92,7 +91,7 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
             }
 
             @Override
-            public void onFailure(Call<MuseumResult> call, Throwable t) {
+            public void onFailure(@NonNull Call<MuseumResultAPI> call, @NonNull Throwable t) {
                 Toast.makeText(QueryActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 throw new RuntimeException(t);
             }
@@ -120,35 +119,14 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
     }
 
     private void updateListUI() {
-//        rvMuseums = new RecyclerView(this);
-//        rvMuseums.setLayoutManager(new LinearLayoutManager(this));
-//        getLayoutInflater().inflate(R.layout.list_view, rvMuseums);
-//
-//        MuseumAdapter adapter = new MuseumAdapter();
-//        rvMuseums.setAdapter(adapter);
-//
-//        flMuseums.removeAllViews();
-//        flMuseums.addView(rvMuseums);
-//
-//        adapter.setData(result.getGraph());
-        // TODO fix
+        ListViewFragment lvf = ListViewFragment.newInstance(result);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flMuseums, lvf)
+                .commit();
     }
 
     private void updateMapUI() {
         Toast.makeText(this, "Map mode", Toast.LENGTH_SHORT).show(); // TODO
-    }
-
-    // GETTERS
-    public RecyclerView getRvMuseums() {
-        // TODO
-//        if (rvMuseums == null) { // TODO is it better to free the memory?
-//            rvMuseums = new RecyclerView(this);
-//            rvMuseums.setLayoutManager(new LinearLayoutManager(this));
-//            getLayoutInflater().inflate(R.layout.list_view, rvMuseums);
-//            MuseumAdapter adapter = new MuseumAdapter();
-//            rvMuseums.setAdapter(adapter);
-//        }
-        return rvMuseums;
     }
 
     // ******* MENU *******
