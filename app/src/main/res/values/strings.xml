@@ -5,4 +5,9 @@
     <string name="main_activity_button">Consultar datos</string>
     <string name="fap_icon_description">Toggle between dark and light modes.</string>
     <string name="logo_description">logo</string>
+    <string name="query_activity_title">Consulta datos:</string>
+    <string name="btn_filter_query">Filtrar</string>
+    <string name="btn_sort_query">Buscar</string>
+    <string name="list_option">Listado</string>
+    <string name="map_option">Mapa</string>
 </resources>

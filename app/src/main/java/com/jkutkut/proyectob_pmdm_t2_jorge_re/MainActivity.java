@@ -19,8 +19,8 @@ public class MainActivity extends CustomActivity {
 
         btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(v -> {
-//            Intent i = new Intent(this, QueryActivity.class);
-//            startActivity(i);
+            Intent i = new Intent(this, QueryActivity.class);
+            startActivity(i);
         });
     }
 }
