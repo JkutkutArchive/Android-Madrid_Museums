@@ -66,7 +66,6 @@ public class MuseumDetailActivity extends AppCompatActivity {
     }
 
     private void loadData(Museum museum) {
-//        TextView txtvName = findViewById(R.id.txtvName); // TODO title
         TextView txtvAddress = findViewById(R.id.txtvAddress);
         TextView txtvDescription = findViewById(R.id.txtvDescription);
         TextView txtvScheduleTitle = findViewById(R.id.txtvScheduleTitle);
@@ -82,9 +81,12 @@ public class MuseumDetailActivity extends AppCompatActivity {
         txtvDescription.setText(
                 museum.getOrganization().getOrganizationDesc()
         );
-        txtvScheduleTitle.setText(getString(R.string.schedule_label));
-        txtvSchedule.setText(
-                museum.getOrganization().getSchedule()
-        );
+        String schedule = museum.getOrganization().getSchedule();
+        if (!schedule.isEmpty()) {
+            txtvScheduleTitle.setText(getString(R.string.schedule_label));
+            txtvSchedule.setText(
+                    museum.getOrganization().getSchedule()
+            );
+        }
     }
 }
