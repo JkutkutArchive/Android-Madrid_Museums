@@ -12,7 +12,7 @@ public class MuseumResultAPI implements Serializable {
     private Context context;
     @SerializedName("@graph")
     @Expose
-    private List<Museum> museum;
+    private List<Museum> museums;
 
     public Context getContext() {
         return context;
@@ -23,11 +23,11 @@ public class MuseumResultAPI implements Serializable {
     }
 
     public List<Museum> getMuseums() {
-        return museum;
+        return museums;
     }
 
-    public void setMuseum(List<Museum> museum) {
-        this.museum = museum;
+    public void setMuseums(List<Museum> museums) {
+        this.museums = museums;
     }
 
 }

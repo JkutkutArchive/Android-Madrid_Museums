@@ -102,7 +102,7 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
             @Override
             public void onFailure(@NonNull Call<MuseumResultAPI> call, @NonNull Throwable t) {
                 Toast.makeText(QueryActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                throw new RuntimeException(t);
+                t.printStackTrace();
             }
         });
     }

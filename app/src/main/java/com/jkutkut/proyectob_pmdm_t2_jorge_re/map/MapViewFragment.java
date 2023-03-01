@@ -74,7 +74,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
-        data = (MuseumResultAPI) requireArguments().getSerializable(ARG_OBJ);
         return v;
     }
 

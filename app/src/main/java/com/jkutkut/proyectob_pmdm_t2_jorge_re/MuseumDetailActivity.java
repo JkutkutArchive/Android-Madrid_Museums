@@ -31,6 +31,8 @@ public class MuseumDetailActivity extends AppCompatActivity {
         String[] id_split = museum.getAtId().split("/");
         String id = id_split[id_split.length - 1];
 
+        setTitle("");
+
 //        loadData(museum);
 
         getData(
@@ -50,7 +52,7 @@ public class MuseumDetailActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Call<MuseumResultAPI> call, @NonNull Throwable t) {
                     Toast.makeText(getBaseContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    throw new RuntimeException(t);
+                    t.printStackTrace();
                 }
             }
         );
@@ -64,12 +66,13 @@ public class MuseumDetailActivity extends AppCompatActivity {
     }
 
     private void loadData(Museum museum) {
-        TextView txtvName = findViewById(R.id.txtvName);
+//        TextView txtvName = findViewById(R.id.txtvName); // TODO title
         TextView txtvAddress = findViewById(R.id.txtvAddress);
         TextView txtvDescription = findViewById(R.id.txtvDescription);
+        TextView txtvScheduleTitle = findViewById(R.id.txtvScheduleTitle);
         TextView txtvSchedule = findViewById(R.id.txtvSchedule);
 
-        txtvName.setText(museum.getTitle());
+        setTitle(museum.getTitle());
         txtvAddress.setText(String.format(
                 getString(R.string.address_template),
                 museum.getAddress().getStreetAddress(),
@@ -79,6 +82,7 @@ public class MuseumDetailActivity extends AppCompatActivity {
         txtvDescription.setText(
                 museum.getOrganization().getOrganizationDesc()
         );
+        txtvScheduleTitle.setText(getString(R.string.schedule_label));
         txtvSchedule.setText(
                 museum.getOrganization().getSchedule()
         );
