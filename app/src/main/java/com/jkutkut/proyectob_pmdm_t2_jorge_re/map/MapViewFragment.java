@@ -1,5 +1,6 @@
 package com.jkutkut.proyectob_pmdm_t2_jorge_re.map;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,10 +14,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.MuseumDetailActivity;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.R;
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Location;
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Museum;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.MuseumResultAPI;
 
 import java.util.Objects;
@@ -26,7 +32,7 @@ import java.util.Objects;
  * Use the {@link MapViewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapViewFragment extends Fragment implements OnMapReadyCallback {
+public class MapViewFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final String ARG_OBJ = "obj";
 
@@ -67,6 +73,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
+        data = (MuseumResultAPI) requireArguments().getSerializable(ARG_OBJ);
         return v;
     }
 
@@ -77,10 +84,37 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
             requireContext(),
             R.raw.map_style_json
         ));
+        map.setOnMarkerClickListener(this);
 
-        LatLng sydney = new LatLng(-34, 151);
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        // TODO
+        for (Museum m : data.getMuseums()) {
+            map.addMarker(newMarker(m));
+        }
+
+        // With more zoom
+        LatLng madrid = new LatLng(40.416775, -3.703790);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(madrid, 10));
+    }
+
+    private MarkerOptions newMarker(Museum m) {
+        System.out.println(m.getTitle());
+        Location l = m.getLocation();
+        return new MarkerOptions()
+            .position(new LatLng(l.getLatitude(), l.getLongitude()))
+            .title(m.getTitle())
+            .snippet(getString(R.string.map_marker_click_me))
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        System.out.println("Marker clicked");
+        for (Museum m : data.getMuseums()) {
+            if (m.getTitle().equals(marker.getTitle())) {
+                Intent i = new Intent(requireContext(), MuseumDetailActivity.class);
+                i.putExtra(MuseumDetailActivity.ARG, m);
+                startActivity(i);
+            }
+        }
+        return false;
     }
 }
