@@ -19,4 +19,5 @@
     <string name="map_marker_click_me">Haz click para más información</string>
     <string name="loading_msg">Cargando…</string>
     <string name="schedule_label">Horario:</string>
+    <string name="no_results">No se han encontrado resultados</string>
 </resources>

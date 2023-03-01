@@ -129,32 +129,27 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
     private void updateUI() {
         if (result == null)
             return;
+        if (result.getMuseums().size() == 0) {
+            Toast.makeText(this, R.string.no_results, Toast.LENGTH_LONG).show();
+            return;
+        }
         if (mode == LIST_MODE)
-            updateListUI();
+            currentResultFragment = ListViewFragment.newInstance(result);
         else if (mode == MAP_MODE)
-            updateMapUI();
+            currentResultFragment = MapViewFragment.newInstance(result);
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.flMuseums, currentResultFragment)
+            .commit();
     }
 
     private void clearResults() {
         if (currentResultFragment == null)
             return;
-        getSupportFragmentManager().beginTransaction()
-                .remove(currentResultFragment).commit();
-    }
-
-    private void updateListUI() {
-        currentResultFragment = ListViewFragment.newInstance(result);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.flMuseums, currentResultFragment)
-                .commit();
-    }
-
-    private void updateMapUI() {
-//        Toast.makeText(this, "Map mode", Toast.LENGTH_SHORT).show(); // TODO
-        currentResultFragment = MapViewFragment.newInstance(result);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.flMuseums, currentResultFragment)
-                .commit();
+        getSupportFragmentManager()
+            .beginTransaction()
+            .remove(currentResultFragment)
+            .commit();
     }
 
     // ******* MENU *******
