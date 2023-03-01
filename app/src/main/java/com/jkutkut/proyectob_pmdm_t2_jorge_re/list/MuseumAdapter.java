@@ -14,7 +14,6 @@ import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Museum;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MuseumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -24,11 +23,6 @@ public class MuseumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public MuseumAdapter(List<Museum> data) {
         this.data = data;
     }
-
-//    public void setData(List<Museum> newData) {
-//        data.clear();
-//        data.addAll(newData);
-//    }
 
     @NotNull
     @Override

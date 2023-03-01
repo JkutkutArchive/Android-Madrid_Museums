@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.R;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.MuseumResultAPI;

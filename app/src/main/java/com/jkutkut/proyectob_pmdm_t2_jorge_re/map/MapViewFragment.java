@@ -25,8 +25,6 @@ import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Location;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Museum;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.MuseumResultAPI;
 
-import java.util.Objects;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MapViewFragment#newInstance} factory method to
@@ -36,7 +34,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
 
     private static final String ARG_OBJ = "obj";
 
-    private GoogleMap map;
     private MuseumResultAPI data;
 
     public MapViewFragment() {
@@ -80,7 +77,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
         // Web: https://mapstyle.withgoogle.com/
-        this.map = map;
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(
             requireContext(),
             R.raw.map_style
@@ -98,12 +94,11 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
 
     private MarkerOptions newMarker(Museum m) {
         Location l = m.getLocation();
-        MarkerOptions marker = new MarkerOptions()
+        return new MarkerOptions()
             .position(new LatLng(l.getLatitude(), l.getLongitude()))
             .title(m.getTitle())
             .snippet(getString(R.string.map_marker_click_me))
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-        return marker;
     }
 
     @Override

@@ -10,8 +10,6 @@ import com.jkutkut.proyectob_pmdm_t2_jorge_re.custom.CustomActivity;
 
 public class MainActivity extends CustomActivity {
 
-    private AppCompatButton btnStart;
-
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +17,7 @@ public class MainActivity extends CustomActivity {
 
         setTitle(R.string.app_title);
 
-        btnStart = findViewById(R.id.btnStart);
+        AppCompatButton btnStart = findViewById(R.id.btnStart);
         btnStart.setOnClickListener(v -> {
             Intent i = new Intent(this, QueryActivity.class);
             startActivity(i);
