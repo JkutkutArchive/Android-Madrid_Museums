@@ -32,10 +32,11 @@ import java.util.Objects;
  * Use the {@link MapViewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapViewFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapViewFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private static final String ARG_OBJ = "obj";
 
+    private GoogleMap map;
     private MuseumResultAPI data;
 
     public MapViewFragment() {
@@ -80,11 +81,12 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
         // Web: https://mapstyle.withgoogle.com/
+        this.map = map;
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(
             requireContext(),
             R.raw.map_style_json
         ));
-        map.setOnMarkerClickListener(this);
+        map.setOnInfoWindowClickListener(this);
 
         for (Museum m : data.getMuseums()) {
             map.addMarker(newMarker(m));
@@ -96,25 +98,31 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
     }
 
     private MarkerOptions newMarker(Museum m) {
-        System.out.println(m.getTitle());
         Location l = m.getLocation();
-        return new MarkerOptions()
+        MarkerOptions marker = new MarkerOptions()
             .position(new LatLng(l.getLatitude(), l.getLongitude()))
             .title(m.getTitle())
             .snippet(getString(R.string.map_marker_click_me))
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        return marker;
     }
 
     @Override
-    public boolean onMarkerClick(@NonNull Marker marker) {
-        System.out.println("Marker clicked");
+    public void onInfoWindowClick(@NonNull Marker marker) {
+        Museum s = null;
         for (Museum m : data.getMuseums()) {
             if (m.getTitle().equals(marker.getTitle())) {
-                Intent i = new Intent(requireContext(), MuseumDetailActivity.class);
-                i.putExtra(MuseumDetailActivity.ARG, m);
-                startActivity(i);
+                s = m;
+                break;
             }
         }
-        return false;
+        if (s == null) return;
+
+        // Focus on map
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 10));
+
+        Intent i = new Intent(requireContext(), MuseumDetailActivity.class);
+        i.putExtra(MuseumDetailActivity.ARG, s);
+        startActivity(i);
     }
 }
