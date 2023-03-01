@@ -30,6 +30,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal_margin"
+                android:id="@+id/txtvArea"
+                android:textSize="@dimen/normal_text_size"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal_margin"
                 android:id="@+id/txtvDescription"
                 android:textSize="@dimen/normal_text_size"/>
 

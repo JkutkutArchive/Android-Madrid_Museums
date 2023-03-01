@@ -13,8 +13,6 @@ import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.RetrofitClient;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Museum;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.MuseumResultAPI;
 
-import org.w3c.dom.Text;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,6 +70,7 @@ public class MuseumDetailActivity extends AppCompatActivity {
         ProgressBar progressBar = findViewById(R.id.progressBar);
         TextView txtvAddress = findViewById(R.id.txtvAddress);
         TextView txtvDistrict = findViewById(R.id.txtvDistrict);
+        TextView txtvArea = findViewById(R.id.txtvArea);
         TextView txtvDescription = findViewById(R.id.txtvDescription);
         TextView txtvScheduleTitle = findViewById(R.id.txtvScheduleTitle);
         TextView txtvSchedule = findViewById(R.id.txtvSchedule);
@@ -87,8 +86,13 @@ public class MuseumDetailActivity extends AppCompatActivity {
         ));
         String[] district = museum.getAddress().getDistrict().getId().split("/");
         txtvDistrict.setText(String.format(
-                getString(R.string.district_template),
-                district[district.length - 1]
+            getString(R.string.district_template),
+            district[district.length - 1]
+        ));
+        String[] area = museum.getAddress().getArea().getId().split("/");
+        txtvArea.setText(String.format(
+            getString(R.string.area_template),
+            area[area.length - 1]
         ));
         txtvDescription.setText(
             formatDescription(
@@ -116,8 +120,11 @@ public class MuseumDetailActivity extends AppCompatActivity {
     }
 
     private String formatSchedule(String schedule) {
-        return formatRawAPIData(schedule)
-            .replaceAll("\\. +", ".\n\n- ")
-            .replaceAll("^", "- ");
+        String data = formatRawAPIData(schedule)
+            .replaceAll("\\. +", ".\n\n- ");
+        if (!data.isEmpty()) {
+            data = "- " + data;
+        }
+        return data;
     }
 }

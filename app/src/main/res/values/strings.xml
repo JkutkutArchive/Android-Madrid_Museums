@@ -21,4 +21,5 @@
     <string name="schedule_label">Horario:</string>
     <string name="no_results">No se han encontrado resultados</string>
     <string name="district_template">- Distrito: %1$s</string>
+    <string name="area_template">- Área: %1$s</string>
 </resources>
