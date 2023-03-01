@@ -171,6 +171,7 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
         if (newMode == -1 || newMode == mode)
             return result;
         mode = newMode;
+//        filterDistrict = null; // Reset the filter
         clearResults();
         updateFilterUI();
         return result;

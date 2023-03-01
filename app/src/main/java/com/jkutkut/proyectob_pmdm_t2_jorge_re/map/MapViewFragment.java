@@ -83,7 +83,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback, Goo
         this.map = map;
         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(
             requireContext(),
-            R.raw.map_style_json
+            R.raw.map_style
         ));
         map.setOnInfoWindowClickListener(this);
 
