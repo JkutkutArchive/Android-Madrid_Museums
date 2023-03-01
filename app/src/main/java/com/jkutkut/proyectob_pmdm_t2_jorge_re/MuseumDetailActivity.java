@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,10 +67,13 @@ public class MuseumDetailActivity extends AppCompatActivity {
     }
 
     private void loadData(Museum museum) {
+        ProgressBar progressBar = findViewById(R.id.progressBar);
         TextView txtvAddress = findViewById(R.id.txtvAddress);
         TextView txtvDescription = findViewById(R.id.txtvDescription);
         TextView txtvScheduleTitle = findViewById(R.id.txtvScheduleTitle);
         TextView txtvSchedule = findViewById(R.id.txtvSchedule);
+
+        progressBar.setVisibility(ProgressBar.GONE);
 
         setTitle(museum.getTitle());
         txtvAddress.setText(String.format(
