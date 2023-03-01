@@ -17,6 +17,7 @@ import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.MuseumResultAPI;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.dialog.FilterDialog;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.dialog.FilterDialogListener;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.list.ListViewFragment;
+import com.jkutkut.proyectob_pmdm_t2_jorge_re.map.MapViewFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -149,7 +150,11 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
     }
 
     private void updateMapUI() {
-        Toast.makeText(this, "Map mode", Toast.LENGTH_SHORT).show(); // TODO
+//        Toast.makeText(this, "Map mode", Toast.LENGTH_SHORT).show(); // TODO
+        currentResultFragment = MapViewFragment.newInstance(result);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flMuseums, currentResultFragment)
+                .commit();
     }
 
     // ******* MENU *******
@@ -170,6 +175,7 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
             newMode = MAP_MODE;
         if (newMode == -1 || newMode == mode)
             return result;
+        mode = newMode;
         clearResults();
         updateFilterUI();
         return result;
