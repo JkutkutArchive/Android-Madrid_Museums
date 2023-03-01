@@ -3,12 +3,11 @@ package com.jkutkut.proyectob_pmdm_t2_jorge_re;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,12 +31,11 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
     private static final int MAP_MODE = 1;
 
     private TextView txtvFilter;
-    private FrameLayout flMuseums;
-    private RecyclerView rvMuseums;
 
     private String filterDistrict;
     private int mode;
     private MuseumResultAPI result;
+    private Fragment currentResultFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,6 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
         mode = LIST_MODE;
 
         txtvFilter = findViewById(R.id.txtvFilter);
-        flMuseums = findViewById(R.id.flMuseums);
         AppCompatButton btnFilterQuery = findViewById(R.id.btnFilterQuery);
         AppCompatButton btnQuery = findViewById(R.id.btnQuery);
 
@@ -68,6 +65,16 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
     }
 
     public void onDialogEnds(String district) {
+        // current null, new null -> do nothing
+        // current !null, new !null and same -> do nothing
+        // else -> clear results
+//        if (filterDistrict == null && district == null ||
+//            filterDistrict != null && filterDistrict.equals(district))
+//            do nothing;
+        // De Morgan
+        if ((filterDistrict != null || district != null) &&
+            (filterDistrict == null || !filterDistrict.equals(district)))
+            clearResults();
         filterDistrict = district;
         updateFilterUI();
     }
@@ -118,10 +125,17 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
             updateMapUI();
     }
 
-    private void updateListUI() {
-        ListViewFragment lvf = ListViewFragment.newInstance(result);
+    private void clearResults() {
+        if (currentResultFragment == null)
+            return;
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.flMuseums, lvf)
+                .remove(currentResultFragment).commit();
+    }
+
+    private void updateListUI() {
+        currentResultFragment = ListViewFragment.newInstance(result);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flMuseums, currentResultFragment)
                 .commit();
     }
 
