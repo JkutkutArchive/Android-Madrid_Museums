@@ -20,4 +20,5 @@
     <string name="loading_msg">Cargando…</string>
     <string name="schedule_label">Horario:</string>
     <string name="no_results">No se han encontrado resultados</string>
+    <string name="district_template">- Distrito: %1$s</string>
 </resources>

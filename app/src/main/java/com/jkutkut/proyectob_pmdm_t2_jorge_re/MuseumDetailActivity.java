@@ -13,6 +13,8 @@ import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.RetrofitClient;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.Museum;
 import com.jkutkut.proyectob_pmdm_t2_jorge_re.api.result.MuseumResultAPI;
 
+import org.w3c.dom.Text;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,6 +71,7 @@ public class MuseumDetailActivity extends AppCompatActivity {
     private void loadData(Museum museum) {
         ProgressBar progressBar = findViewById(R.id.progressBar);
         TextView txtvAddress = findViewById(R.id.txtvAddress);
+        TextView txtvDistrict = findViewById(R.id.txtvDistrict);
         TextView txtvDescription = findViewById(R.id.txtvDescription);
         TextView txtvScheduleTitle = findViewById(R.id.txtvScheduleTitle);
         TextView txtvSchedule = findViewById(R.id.txtvSchedule);
@@ -82,15 +85,39 @@ public class MuseumDetailActivity extends AppCompatActivity {
                 museum.getAddress().getPostalCode(),
                 museum.getAddress().getLocality()
         ));
+        String[] district = museum.getAddress().getDistrict().getId().split("/");
+        txtvDistrict.setText(String.format(
+                getString(R.string.district_template),
+                district[district.length - 1]
+        ));
         txtvDescription.setText(
+            formatDescription(
                 museum.getOrganization().getOrganizationDesc()
+            )
         );
-        String schedule = museum.getOrganization().getSchedule();
+        String schedule = formatSchedule(museum.getOrganization().getSchedule());
         if (!schedule.isEmpty()) {
             txtvScheduleTitle.setText(getString(R.string.schedule_label));
-            txtvSchedule.setText(
-                    museum.getOrganization().getSchedule()
-            );
+            txtvSchedule.setText(schedule);
         }
+    }
+
+    private String formatRawAPIData(String data) {
+        return data.trim().replaceAll("[ ]{2,}(\\w+?( \\w+?){0,2} ?:) *", "\n\n- $1\n")
+                .replaceAll(",\n", ".\n");
+    }
+
+    private String formatDescription(String description) {
+        String data = formatRawAPIData(description).trim();
+        if (!data.isEmpty()) {
+            data = "- " + data;
+        }
+        return data;
+    }
+
+    private String formatSchedule(String schedule) {
+        return formatRawAPIData(schedule)
+            .replaceAll("\\. +", ".\n\n- ")
+            .replaceAll("^", "- ");
     }
 }
