@@ -22,7 +22,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_sort_query"
+        android:text="@string/btn_query"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnFilterQuery"
         android:id="@+id/btnQuery" />

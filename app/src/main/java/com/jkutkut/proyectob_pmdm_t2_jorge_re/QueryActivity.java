@@ -31,6 +31,7 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
     private static final int MAP_MODE = 1;
 
     private TextView txtvFilter;
+    AppCompatButton btnQuery;
 
     private String filterDistrict;
     private int mode;
@@ -49,7 +50,7 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
 
         txtvFilter = findViewById(R.id.txtvFilter);
         AppCompatButton btnFilterQuery = findViewById(R.id.btnFilterQuery);
-        AppCompatButton btnQuery = findViewById(R.id.btnQuery);
+        btnQuery = findViewById(R.id.btnQuery);
 
         btnFilterQuery.setOnClickListener(v -> openFilterDialog());
         btnQuery.setOnClickListener(v -> search());
@@ -114,6 +115,14 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
                 getString(R.string.district_filter_template),
                 filterDistrict
             ));
+        btnQuery.setText(String.format(
+            getString(R.string.btn_query),
+            getString(
+                (mode == LIST_MODE) ?
+                    R.string.btn_query_list :
+                    R.string.btn_query_map
+            )
+        ));
     }
 
     private void updateUI() {
@@ -159,7 +168,10 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
         else if (item.getItemId() == R.id.mnMap) {
             mode = MAP_MODE;
         }
-        // TODO clear flMuseums
+        else
+            return super.onOptionsItemSelected(item);
+        clearResults(); // TODO can this be optimized?
+        updateFilterUI();
         return super.onOptionsItemSelected(item);
     }
 }

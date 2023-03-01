@@ -8,7 +8,9 @@
     <string name="logo_description">logo</string>
     <string name="query_activity_title">Consulta datos:</string>
     <string name="btn_filter_query">Filtrar</string>
-    <string name="btn_sort_query">Buscar</string>
+    <string name="btn_query">Consultar en %s</string>
+    <string name="btn_query_list">lista</string>
+    <string name="btn_query_map">mapa</string>
     <string name="list_option">Listado</string>
     <string name="map_option">Mapa</string>
     <string name="filter_dialog_title">Seleccionar Distrito</string>
