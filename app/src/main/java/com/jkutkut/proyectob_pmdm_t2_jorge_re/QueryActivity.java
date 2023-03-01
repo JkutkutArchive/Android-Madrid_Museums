@@ -162,16 +162,16 @@ public class QueryActivity extends AppCompatActivity implements FilterDialogList
 
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        if (item.getItemId() == R.id.mnList) {
-            mode = LIST_MODE;
-        }
-        else if (item.getItemId() == R.id.mnMap) {
-            mode = MAP_MODE;
-        }
-        else
-            return super.onOptionsItemSelected(item);
-        clearResults(); // TODO can this be optimized?
+        boolean result = super.onOptionsItemSelected(item);
+        int newMode = -1;
+        if (item.getItemId() == R.id.mnList)
+            newMode = LIST_MODE;
+        else if (item.getItemId() == R.id.mnMap)
+            newMode = MAP_MODE;
+        if (newMode == -1 || newMode == mode)
+            return result;
+        clearResults();
         updateFilterUI();
-        return super.onOptionsItemSelected(item);
+        return result;
     }
 }
